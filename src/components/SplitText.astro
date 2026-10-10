@@ -1,0 +1,26 @@
+---
+/**
+ * Divide un texto en letras o palabras (<span class="sp">) para animarlas una a una.
+ * El texto completo queda en aria-label para lectores de pantalla.
+ */
+import type { HTMLAttributes, HTMLTag } from "astro/types";
+
+type Props = HTMLAttributes<"span"> & {
+  text: string;
+  mode?: "chars" | "words";
+  as?: HTMLTag;
+  [key: `data-${string}`]: unknown;
+};
+
+const { text, mode = "words", as: Tag = "span", ...rest } = Astro.props;
+const parts = mode === "chars" ? [...text] : text.split(/\s+/);
+---
+
+<Tag data-split={mode} aria-label={text} {...rest}>
+  {parts.map((part, i) => (
+    <>
+      <span class="sp" aria-hidden="true" style={`--i:${i}`} set:html={part === " " ? "&nbsp;" : part} />
+      {mode === "words" && i < parts.length - 1 && " "}
+    </>
+  ))}
+</Tag>

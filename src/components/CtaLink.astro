@@ -1,0 +1,37 @@
+---
+/**
+ * Botón con línea que se alarga al pasar el cursor.
+ * `tone="light"` para fondos oscuros; `solid` lo rellena para la acción principal.
+ */
+interface Props {
+  href: string;
+  tone?: "dark" | "light";
+  solid?: boolean;
+  class?: string;
+  style?: string;
+  [key: `data-${string}`]: unknown;
+}
+
+const { href, tone = "dark", solid = false, class: className, ...rest } = Astro.props;
+const external = href.startsWith("http");
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener" : undefined}
+  data-mag
+  class:list={[
+    "group inline-flex items-center gap-3.5 border px-7 py-4 text-[13px] font-normal tracking-[0.24em] uppercase no-underline transition-colors duration-400",
+    solid
+      ? "border-ink bg-ink text-stone hover:border-gold hover:bg-gold"
+      : tone === "dark"
+        ? "border-ink hover:bg-ink hover:text-stone"
+        : "border-stone hover:bg-stone hover:text-ink",
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+  <i class="h-px w-7 bg-current transition-[width] duration-400 group-hover:w-12"></i>
+</a>

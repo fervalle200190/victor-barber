@@ -1,0 +1,41 @@
+---
+import { stats } from "@/data/site";
+---
+
+<section class="py-[clamp(80px,12vw,160px)]">
+  <div class="wrap grid grid-cols-1 items-center gap-[clamp(32px,7vw,120px)] lg:grid-cols-[5fr_6fr]">
+    <!-- TODO: foto de Victor trabajando -->
+    <figure class="about-photo photo m-0 aspect-[4/5] text-[#eee]" data-prog data-r="clip">
+      <span class="ph-tag">Foto · Victor trabajando</span>
+    </figure>
+    <div>
+      <p class="eyebrow" data-r>Sobre Victor</p>
+      <h2 data-r class="mt-4 text-[clamp(36px,5vw,64px)] leading-[1.05]">
+        Escuchar primero, <em class="text-gold">cortar después.</em>
+      </h2>
+      <p data-r class="mt-6 max-w-[52ch] text-muted">
+        Empecé cortando a mis amigos en el patio de casa. Hoy atiendo en mi propio estudio con la misma regla de
+        siempre. Si no sabes qué pedir, trae una foto y lo vemos juntos.
+      </p>
+      <div class="mt-10 grid grid-cols-3 gap-6 border-t border-line pt-6">
+        {stats.map((s) => (
+          <div class="eyebrow">
+            <b data-count={String(s.value)} data-suf={s.suffix} class="block font-display text-[clamp(36px,4vw,56px)] leading-none font-normal text-ink">
+              {s.value}{s.suffix}
+            </b>
+            {s.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-photo {
+    background:
+      radial-gradient(ellipse at 45% 32%, #8b8174 0 16%, transparent 17%),
+      linear-gradient(200deg, #5a554c, #1d1b17);
+    transform: translateY(calc((var(--p, 0.5) - 0.5) * -80px));
+  }
+</style>

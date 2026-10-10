@@ -1,0 +1,32 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Hero from "@/components/Hero.astro";
+import Intro from "@/components/Intro.astro";
+import WorkGallery from "@/components/WorkGallery.astro";
+import Services from "@/components/Services.astro";
+import About from "@/components/About.astro";
+import Reviews from "@/components/Reviews";
+import Contact from "@/components/Contact.astro";
+import { contact, reviews } from "@/data/site";
+---
+
+<Layout>
+  <Header />
+  <main id="top">
+    <Hero />
+    <Intro />
+    <WorkGallery />
+    <Services />
+    <About />
+    <section class="border-t border-line py-[clamp(80px,12vw,160px)]">
+      <div class="wrap">
+        <Reviews client:visible reviews={reviews} />
+      </div>
+    </section>
+    <Contact />
+  </main>
+  <footer class="bg-ink pt-7 pb-[calc(28px+env(safe-area-inset-bottom,0px))] text-[13px] text-[#77736b]">
+    <div class="wrap">© {new Date().getFullYear()} {contact.name} · {contact.tagline}</div>
+  </footer>
+</Layout>

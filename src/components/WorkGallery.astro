@@ -1,0 +1,60 @@
+---
+import { works } from "@/data/site";
+---
+
+<!-- Sección alta anclada: el scroll vertical mueve la galería en horizontal -->
+<section id="obra" class="hscroll h-[340vh]" data-pin>
+  <div class="sticky top-0 flex h-screen flex-col justify-center gap-7 overflow-hidden">
+    <div class="wrap flex w-full items-end justify-between">
+      <p class="eyebrow">Obra reciente</p>
+      <p class="font-display text-[15px] text-muted">Desliza ↓</p>
+    </div>
+    <div class="track flex w-max gap-[4vw] px-[4vw]">
+      {works.map((w, i) => (
+        <figure class="panel group m-0 grid flex-none grid-cols-[1fr_auto] grid-rows-[minmax(0,1fr)_auto] items-end gap-4">
+          <div class="photo col-span-full self-stretch text-[#eee]" style={`--g:${w.placeholder}`}>
+            {w.image ? (
+              <img src={w.image} alt={w.title} loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-[1.2s] ease-silk group-hover:scale-[1.07]" />
+            ) : (
+              <span class="ph-tag">Foto</span>
+            )}
+          </div>
+          <h3 class="text-[clamp(24px,2.6vw,36px)]">{w.title}</h3>
+          <span class="text-xs tracking-[0.24em] text-muted uppercase">{String(i + 1).padStart(2, "0")}</span>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .track {
+    --shift: -224vw;
+    transform: translateX(calc(var(--p, 0) * var(--shift)));
+    will-change: transform;
+  }
+  .panel {
+    width: 60vw;
+    height: 62vh;
+  }
+  /* Marcador de posición mientras no haya fotos */
+  .photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--g);
+    transition: transform 1.2s var(--ease-silk);
+  }
+  .panel:hover .photo::before {
+    transform: scale(1.07);
+  }
+  @media (max-width: 720px) {
+    .panel {
+      width: 80vw;
+      height: 56vh;
+    }
+    .track {
+      --shift: -324vw;
+    }
+  }
+</style>

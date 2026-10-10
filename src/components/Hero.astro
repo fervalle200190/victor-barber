@@ -1,0 +1,87 @@
+---
+import SplitText from "./SplitText.astro";
+import CtaLink from "./CtaLink.astro";
+import { contact, whatsappUrl } from "@/data/site";
+---
+
+<section class="hero relative grid min-h-[92vh] items-end overflow-hidden pt-30 pb-12 max-md:items-start max-md:pt-24">
+  <div class="wrap w-full">
+    <!-- TODO: reemplazar por <img> con el retrato de Victor -->
+    <figure class="hero-photo photo m-0 aspect-[3/4] max-w-full">
+      <span class="ph-tag">Foto · retrato</span>
+    </figure>
+
+    <SplitText
+      as="h1"
+      mode="chars"
+      text={contact.name.toUpperCase()}
+      data-load
+      class="hero-title relative z-2 whitespace-nowrap mix-blend-multiply"
+    />
+
+    <!-- Texto y botón en la columna izquierda: la foto ocupa la derecha -->
+    <div class="relative z-2 mt-7 flex max-w-[38ch] flex-col items-start gap-6">
+      <p data-r style="--d:3" class="text-[19px]">
+        Barbería de autor. Cortes a tijera y navaja,
+        <em class="font-display text-gold">hechos con calma</em>, uno a la vez.
+      </p>
+      <CtaLink href={whatsappUrl()} solid data-r style="--d:5">Escribir por WhatsApp</CtaLink>
+    </div>
+  </div>
+  <span class="scroll-cue" aria-hidden="true"></span>
+</section>
+
+<style>
+  /* Luz dorada que sigue al cursor */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(560px circle at var(--cx, 70%) var(--cy, 40%), rgb(156 126 69 / 0.22), transparent 62%);
+  }
+
+  .hero-photo {
+    position: absolute;
+    right: clamp(16px, 6vw, 96px);
+    top: 14vh;
+    width: min(36vw, 460px);
+    color: #eee;
+    background:
+      radial-gradient(ellipse at 50% 35%, #7d7468 0 18%, transparent 19%),
+      linear-gradient(170deg, #3d3a35, #16140f);
+    transform: translateY(calc(var(--sy, 0) * -260px)) scale(calc(1 + var(--sy, 0) * 0.4));
+  }
+
+  /* El nombre se abre letra a letra al bajar */
+  .hero-title {
+    font-size: calc(0.92 * clamp(84px, 19vw, 300px));
+    line-height: 0.82;
+    letter-spacing: calc(-0.04em + var(--sy, 0) * 1.6em);
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    z-index: 2;
+    width: 1px;
+    height: 52px;
+    background: linear-gradient(var(--color-gold), transparent);
+    animation: cue 2.4s infinite;
+  }
+
+  @media (max-width: 767px) {
+    .hero-photo {
+      position: relative;
+      right: auto;
+      top: auto;
+      width: 100%;
+      height: 46vh;
+      aspect-ratio: auto;
+      margin-bottom: 24px;
+      transform: none;
+    }
+  }
+</style>

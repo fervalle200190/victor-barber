@@ -1,0 +1,75 @@
+<title>Victor Barber · Opciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Italiana&family=Marcellus&family=Instrument+Serif&family=Gloock&family=Geist:wght@300;400;500&display=swap">
+<style>
+/* Índice de propuestas: cinco tarjetas grandes, cada una con la paleta y tipografía de su opción. */
+:root{--bg:#f4f3f0;--fg:#141413;--muted:#6f6d68;--line:#dcdad4;--card:#ffffff;--f-b:"Geist",system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121211;--fg:#ecebe7;--muted:#9d9a94;--line:#2c2b29;--card:#1a1a19;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121211;--fg:#ecebe7;--muted:#9d9a94;--line:#2c2b29;--card:#1a1a19;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-b);font-weight:300;font-size:16px;line-height:1.6}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px);padding-block:56px 80px}
+.k{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(44px,7vw,84px);line-height:1;margin:14px 0 0;text-wrap:balance}
+.lede{max-width:62ch;margin-top:18px;color:var(--muted)}
+.list{display:grid;gap:18px;margin-top:48px}
+a.opt{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);transition:transform .35s,border-color .3s,box-shadow .35s}
+a.opt:hover{transform:translateY(-3px);border-color:var(--fg);box-shadow:0 18px 40px rgba(0,0,0,.12)}
+.swatch{min-height:230px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;background:var(--s-bg);color:var(--s-fg);position:relative;overflow:hidden}
+.swatch .name{font-family:var(--s-font);font-size:clamp(44px,6vw,76px);line-height:.95}
+.swatch .name em{font-style:normal;color:var(--s-acc)}
+.chips{display:flex;gap:8px}
+.chips i{width:26px;height:26px;border-radius:50%;border:1px solid rgba(128,128,128,.35)}
+.swatch .num{position:absolute;right:24px;top:20px;font-size:13px;letter-spacing:.14em;opacity:.7}
+.info{padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.info h2{margin:0;font-size:22px;font-weight:500}
+.info p{margin:0;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.tags span{font-size:12.5px;border:1px solid var(--line);border-radius:99px;padding:4px 10px}
+.go{font-weight:500;display:inline-flex;gap:8px;align-items:center}
+.go b{transition:transform .3s;font-weight:500}
+a.opt:hover .go b{transform:translateX(6px)}
+a.opt:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+@media (max-width:760px){a.opt{grid-template-columns:1fr}.swatch{min-height:190px}}
+.foot{margin-top:40px;color:var(--muted);font-size:14px;max-width:70ch}
+</style>
+
+<div class="wrap">
+  <p class="k">Victor Barber · Propuestas de landing v1</p>
+  <h1>Cinco direcciones para elegir</h1>
+  <p class="lede">Cada opción es una landing completa con animaciones al hacer scroll e interacciones con el cursor. Ábrelas, recórrelas hasta el final y dime cuál refinamos. Las fotos son espacios reservados y los datos de contacto son de ejemplo.</p>
+
+  <div class="list">
+    <a class="opt" href="opcion-1-atelier.html" style="--s-bg:#ebe9e4;--s-fg:#121212;--s-acc:#9c7e45;--s-font:'Bodoni Moda',Didot,serif">
+      <div class="swatch"><span class="num">01</span><span class="name">Atelier</span><div class="chips"><i style="background:#ebe9e4"></i><i style="background:#121212"></i><i style="background:#9c7e45"></i></div></div>
+      <div class="info"><h2>Atelier: barbería de autor</h2><p>Piedra clara, negro y oro viejo con una Bodoni de moda. Sobria, editorial, de alta costura.</p>
+        <div class="tags"><span>Nombre que se abre al hacer scroll</span><span>Galería horizontal anclada</span><span>Carta que se despliega al pasar</span><span>Reseñas rotativas</span></div>
+        <span class="go">Ver opción <b>→</b></span></div>
+    </a>
+    <a class="opt" href="opcion-2-verde-botella.html" style="--s-bg:#0e241d;--s-fg:#efe8d8;--s-acc:#c8a35a;--s-font:'Italiana',Didot,serif">
+      <div class="swatch"><span class="num">02</span><span class="name">Verde <em>Botella</em></span><div class="chips"><i style="background:#0e241d"></i><i style="background:#c8a35a"></i><i style="background:#efe8d8"></i></div></div>
+      <div class="info"><h2>Verde Botella: club privado</h2><p>Terciopelo verde, latón y crema. Se siente como un club de caballeros de un solo sillón.</p>
+        <div class="tags"><span>Foco de luz que sigue el cursor</span><span>Vista previa flotante en servicios</span><span>Fotos que se descubren</span><span>Contadores</span></div>
+        <span class="go">Ver opción <b>→</b></span></div>
+    </a>
+    <a class="opt" href="opcion-3-deco-nocturno.html" style="--s-bg:#0b1130;--s-fg:#f2ecdf;--s-acc:#dcc596;--s-font:'Marcellus',Georgia,serif">
+      <div class="swatch"><span class="num">03</span><span class="name"><em>Deco</em> Nocturno</span><div class="chips"><i style="background:#0b1130"></i><i style="background:#dcc596"></i><i style="background:#f2ecdf"></i></div></div>
+      <div class="info"><h2>Deco Nocturno: salón art déco</h2><p>Azul medianoche y champán, simetría y marcos dobles. Clásica y ceremonial.</p>
+        <div class="tags"><span>Abanico que gira con el scroll</span><span>Servicios en tarjetas que se apilan</span><span>Retrato en arco</span><span>Carrusel de reseñas</span></div>
+        <span class="go">Ver opción <b>→</b></span></div>
+    </a>
+    <a class="opt" href="opcion-4-galeria.html" style="--s-bg:#f8f7f4;--s-fg:#111110;--s-acc:#6e1f24;--s-font:'Instrument Serif',Georgia,serif">
+      <div class="swatch"><span class="num">04</span><span class="name">Galería<em>.</em></span><div class="chips"><i style="background:#f8f7f4"></i><i style="background:#111110"></i><i style="background:#6e1f24"></i></div></div>
+      <div class="info"><h2>Galería: estudio minimalista</h2><p>Blanco de museo, negro y burdeos. Mucho aire; el corte se presenta como una obra.</p>
+        <div class="tags"><span>Foto que se abre a pantalla completa</span><span>Texto que se ilumina palabra a palabra</span><span>Índice que se invierte al pasar</span><span>Archivo en blanco y negro → color</span></div>
+        <span class="go">Ver opción <b>→</b></span></div>
+    </a>
+    <a class="opt" href="opcion-5-tabaco.html" style="--s-bg:#1e1611;--s-fg:#ece3d3;--s-acc:#c97c4a;--s-font:'Gloock',Georgia,serif">
+      <div class="swatch"><span class="num">05</span><span class="name">Tabaco<em>.</em></span><div class="chips"><i style="background:#1e1611"></i><i style="background:#c97c4a"></i><i style="background:#ece3d3"></i></div></div>
+      <div class="info"><h2>Tabaco: revista masculina</h2><p>Cuero oscuro, hueso y cobre. La más moderna y juguetona de las cinco.</p>
+        <div class="tags"><span>Antes / después arrastrable</span><span>Cintas que corren con el scroll</span><span>Tarjetas que se inclinan</span><span>Cursor y botones magnéticos</span></div>
+        <span class="go">Ver opción <b>→</b></span></div>
+    </a>
+  </div>
+  <p class="foot">Sin reservas en línea: todas las llamadas a la acción llevan a WhatsApp. El sistema de citas queda para la v2. Las animaciones se desactivan si el dispositivo pide reducir el movimiento.</p>
+</div>

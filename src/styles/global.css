@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* Atelier: piedra clara, tinta negra, oro viejo en hilo fino. Display Gilda, texto Jost. */
+@theme {
+  --color-stone: #ebe9e4;
+  --color-stone-2: #dcd8d0;
+  --color-ink: #121212;
+  --color-muted: #6d6a64;
+  --color-gold: #9c7e45;
+  --color-line: #c9c4b9;
+  --color-night-text: #bcb7ad;
+
+  --font-display: "Gilda Display", Didot, Georgia, serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+
+  --ease-silk: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --ease-curtain: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+  body {
+    @apply bg-stone text-ink font-sans font-light antialiased;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 {
+    @apply font-display font-normal;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+}
+
+@utility wrap {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+@utility eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+/* ---------- Animaciones ligadas al scroll (las controla ScrollFx.tsx) ---------- */
+
+/* Aparición: solo se ocultan los elementos que estaban fuera de pantalla al cargar */
+[data-r] {
+  transition:
+    opacity 1.1s var(--ease-silk),
+    transform 1.1s var(--ease-silk),
+    clip-path 1.3s var(--ease-curtain);
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+[data-r][data-pre] { opacity: 0; transform: translateY(40px); }
+[data-r="clip"] { clip-path: inset(0 0 0 0); }
+[data-r="clip"][data-pre] { opacity: 1; transform: none; clip-path: inset(100% 0 0 0); }
+
+.sp { display: inline-block; }
+[data-split][data-r] .sp {
+  transition: transform 1s var(--ease-silk), opacity 1s;
+  transition-delay: calc(var(--i) * 40ms);
+}
+[data-split][data-r][data-pre] { opacity: 1; transform: none; }
+[data-split][data-r][data-pre] .sp { transform: translateY(110%); opacity: 0; }
+
+/* Texto que se ilumina palabra a palabra */
+[data-words] .sp { transition: opacity 0.4s; opacity: 0.18; }
+[data-words] .sp.on { opacity: 1; }
+
+/* Entrada del nombre al cargar */
+[data-load] { overflow: hidden; padding-bottom: 0.06em; }
+[data-load] .sp {
+  animation: rise 1.2s var(--ease-silk) both;
+  animation-delay: calc(var(--i) * 55ms + 120ms);
+}
+@keyframes rise { from { transform: translateY(105%) rotate(4deg); } }
+
+@keyframes cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Textura de grano sobre las fotos */
+.photo { position: relative; overflow: hidden; isolation: isolate; }
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Etiqueta de los marcadores de foto (quitar cuando estén las fotos reales) */
+.ph-tag {
+  position: absolute;
+  z-index: 3;
+  left: 14px;
+  bottom: 12px;
+  font: 500 11px/1 ui-monospace, Menlo, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,45 @@
+---
+import SplitText from "./SplitText.astro";
+import CtaLink from "./CtaLink.astro";
+import { contact, hours, instagramUrl, whatsappUrl } from "@/data/site";
+---
+
+<section id="contacto" class="bg-ink py-[clamp(80px,12vw,160px)] text-stone">
+  <div class="wrap">
+    <p class="eyebrow text-[#9a958c]!" data-r>Contacto</p>
+    <h2 class="mt-5 text-[clamp(56px,11vw,168px)] leading-[0.9]">
+      <SplitText text="Pasa por la" data-r /> <SplitText text="silla." data-r class="text-gold" />
+    </h2>
+
+    <div class="mt-18 grid grid-cols-1 gap-10 border-t border-[#333] pt-8 lg:grid-cols-3">
+      <div data-r>
+        <p class="eyebrow text-[#9a958c]!">Estudio</p>
+        <address class="mt-3 text-night-text not-italic">
+          {contact.address.map((line) => <>{line}<br /></>)}
+        </address>
+        <a href={contact.mapsUrl} target="_blank" rel="noopener" class="mt-3 inline-block text-sm underline underline-offset-4 hover:text-gold">Abrir en Maps</a>
+      </div>
+      <div data-r style="--d:1">
+        <p class="eyebrow text-[#9a958c]!">Horario</p>
+        <table class="mt-3 w-full border-collapse tabular-nums">
+          <tbody>
+            {hours.map((h) => (
+              <tr>
+                <td class="py-1 text-night-text">{h.days}</td>
+                <td class="py-1 text-right text-night-text">{h.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div data-r style="--d:2">
+        <p class="eyebrow text-[#9a958c]!">Escríbeme</p>
+        <p class="mt-3 text-night-text">
+          {contact.phoneDisplay}<br />
+          <a href={instagramUrl} target="_blank" rel="noopener" class="no-underline hover:text-gold">@{contact.instagram}</a>
+        </p>
+        <CtaLink href={whatsappUrl()} tone="light" class="mt-5">WhatsApp</CtaLink>
+      </div>
+    </div>
+  </div>
+</section>

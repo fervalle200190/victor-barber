@@ -1,0 +1,17 @@
+---
+import SplitText from "./SplitText.astro";
+---
+
+<section class="py-[clamp(80px,12vw,160px)]">
+  <div class="wrap">
+    <div class="grid grid-cols-1 gap-12 border-t border-line pt-10 lg:grid-cols-[1fr_2fr]">
+      <p class="eyebrow" data-r>El oficio</p>
+      <SplitText
+        as="p"
+        data-words
+        class="font-display text-[clamp(28px,3.6vw,48px)] leading-[1.2]"
+        text="Cada cabeza tiene su propia arquitectura. Mi trabajo es encontrarla, respetarla y dejarla mejor de lo que llegó."
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,297 @@
+<title>Victor Barber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: azulejo de barbería clásica (verde menta) + tinta azul noche + rojo de poste. Columna editorial, poste giratorio como único gesto animado. */
+:root{
+  --tile:#dde8e1;      /* azulejo menta */
+  --tile-2:#cbdcd2;
+  --paper:#f3f6f3;
+  --ink:#14213a;       /* azul noche */
+  --ink-soft:#4a5870;
+  --pole:#c8312b;      /* rojo poste */
+  --line:#b5c7bc;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-accent:"Newsreader",Georgia,serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wrap:1120px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --tile:#0f1a2e;--tile-2:#16243d;--paper:#0b1424;--ink:#e6efe9;--ink-soft:#9fb0c2;--pole:#e5524a;--line:#2a3a55;color-scheme:dark}}
+:root[data-theme="dark"]{--tile:#0f1a2e;--tile-2:#16243d;--paper:#0b1424;--ink:#e6efe9;--ink-soft:#9fb0c2;--pole:#e5524a;--line:#2a3a55;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;padding-inline:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--f-display);font-stretch:125%;font-weight:850;line-height:.98;letter-spacing:-.01em;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+.label{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-display);font-stretch:110%;font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:.95em 1.4em;border:2px solid var(--ink);color:var(--ink);background:transparent;transition:background .2s,color .2s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--pole);border-color:var(--pole);color:#fff}
+.btn.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+:focus-visible{outline:3px solid var(--pole);outline-offset:3px}
+
+/* Nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font-family:var(--f-display);font-stretch:125%;font-weight:900;font-size:20px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:10px;height:28px;border-radius:5px;background:repeating-linear-gradient(-45deg,var(--pole) 0 5px,var(--paper) 5px 10px,var(--ink) 10px 15px,var(--paper) 15px 20px);border:1.5px solid var(--ink)}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px;font-weight:500}
+.nav ul a{text-decoration:none}
+.nav ul a:hover{color:var(--pole)}
+@media (max-width:820px){.nav ul{display:none}.nav .btn{padding:.7em 1em;font-size:13px}}
+
+/* Hero */
+.hero{background:var(--tile);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1fr auto;gap:clamp(24px,5vw,72px);align-items:end;padding-block:clamp(48px,8vw,104px)}
+.hero h1{font-size:clamp(52px,10vw,132px);text-transform:uppercase}
+.hero h1 em{font-family:var(--f-accent);font-style:italic;font-weight:400;text-transform:none;font-stretch:100%;color:var(--pole);letter-spacing:-.02em}
+.hero .lede{max-width:46ch;margin-top:28px;font-size:19px;color:var(--ink-soft)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:40px}
+.hero .meta b{display:block;font-family:var(--f-display);font-stretch:125%;font-size:28px;font-weight:850;color:var(--ink)}
+.pole{width:72px;height:min(420px,52vw);border:3px solid var(--ink);border-radius:36px;position:relative;overflow:hidden;background:var(--paper);box-shadow:inset -10px 0 18px rgba(0,0,0,.18),inset 8px 0 12px rgba(255,255,255,.35)}
+.pole::before{content:"";position:absolute;inset:-80px 0;background:repeating-linear-gradient(-40deg,var(--pole) 0 18px,#fff 18px 36px,#1f4fa0 36px 54px,#fff 54px 72px);animation:spin 2.6s linear infinite}
+.pole::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset -12px 0 18px rgba(0,0,0,.25),inset 10px 0 14px rgba(255,255,255,.4)}
+@keyframes spin{to{transform:translateY(94px)}}
+@media (prefers-reduced-motion:reduce){.pole::before{animation:none}}
+@media (max-width:640px){.hero .wrap{grid-template-columns:1fr}.pole{display:none}}
+
+section{padding-block:clamp(64px,9vw,112px)}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 40px;margin-bottom:48px}
+.sec-head h2{font-size:clamp(36px,6vw,64px);text-transform:uppercase}
+.sec-head p{max-width:42ch;color:var(--ink-soft)}
+
+/* Servicios */
+.services{border-top:2px solid var(--ink)}
+.svc{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto auto;gap:8px 32px;align-items:baseline;padding-block:22px;border-bottom:1px solid var(--line)}
+.svc h3{font-size:clamp(20px,2.4vw,26px);font-stretch:110%}
+.svc p{color:var(--ink-soft);font-size:15.5px}
+.svc .dur,.svc .price{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.svc .dur{color:var(--ink-soft);font-size:14px}
+.svc .price{font-size:20px;font-weight:500;min-width:4.5ch;text-align:right}
+@media (max-width:700px){.svc{grid-template-columns:1fr auto}.svc p{grid-column:1/-1;order:3}.svc .dur{order:4}}
+.guards{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.guards span{font-family:var(--f-mono);font-size:13px;border:1px solid var(--line);padding:4px 10px;border-radius:99px}
+
+/* Trabajos */
+.work{background:var(--tile)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.ph{position:relative;min-height:220px;background:var(--tile-2);border:1px solid var(--line);display:flex;align-items:flex-end;padding:16px;overflow:hidden}
+.ph::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--ink) 16%,transparent) 0 22%,transparent 23%),linear-gradient(180deg,transparent 55%,color-mix(in srgb,var(--ink) 12%,transparent))}
+.ph figcaption{position:relative;display:flex;justify-content:space-between;width:100%;gap:12px;font-size:14px;font-weight:600}
+.ph figcaption span{font-family:var(--f-mono);font-weight:400;color:var(--ink-soft);font-size:12px}
+.ph.a{grid-column:span 3;grid-row:span 2;min-height:460px}
+.ph.b,.ph.c{grid-column:span 3}
+.ph.d,.ph.e,.ph.f{grid-column:span 2}
+figure{margin:0}
+@media (max-width:760px){.grid{grid-template-columns:1fr 1fr}.ph.a{grid-column:1/-1;min-height:320px}.ph.b,.ph.c,.ph.d,.ph.e,.ph.f{grid-column:span 1;min-height:180px}}
+.note{margin-top:16px;font-size:13px;color:var(--ink-soft)}
+
+/* Sobre */
+.about .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,88px);align-items:start}
+.about .ph{min-height:480px}
+.about blockquote{margin:0 0 28px;font-family:var(--f-accent);font-style:italic;font-size:clamp(26px,3.4vw,38px);line-height:1.2;text-wrap:balance}
+.about p+p{margin-top:16px}
+.about .body{max-width:60ch;color:var(--ink-soft)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;border-top:2px solid var(--ink);padding-top:20px}
+.facts b{display:block;font-family:var(--f-display);font-stretch:125%;font-size:34px;font-weight:850}
+@media (max-width:760px){.about .wrap{grid-template-columns:1fr}.about .ph{min-height:300px}}
+
+/* Reseñas */
+.reviews{background:var(--ink);color:var(--paper)}
+.reviews .label,.reviews .sec-head p{color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.rv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.rv figure{border-top:1px solid color-mix(in srgb,var(--paper) 30%,transparent);padding-top:20px}
+.rv blockquote{margin:0;font-family:var(--f-accent);font-style:italic;font-size:21px;line-height:1.35}
+.rv figcaption{margin-top:16px;font-family:var(--f-mono);font-size:13px;color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.stars{color:var(--pole);letter-spacing:2px;font-size:15px;margin-bottom:10px}
+@media (max-width:820px){.rv{grid-template-columns:1fr;gap:28px}}
+
+/* Visítame */
+.visit .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.visit h3{font-size:22px;font-stretch:110%;margin-bottom:14px}
+.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours td{padding:7px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:14px}
+.hours tr.off td:last-child{color:var(--pole)}
+.visit address{font-style:normal}
+.contact-list{display:grid;gap:12px}
+.contact-list a{text-decoration:none;display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600}
+.contact-list a span{font-family:var(--f-mono);font-weight:400;font-size:13px;color:var(--ink-soft)}
+.contact-list a:hover{color:var(--pole)}
+@media (max-width:820px){.visit .wrap{grid-template-columns:1fr}}
+
+/* Cierre */
+.closer{background:var(--pole);color:#fff;text-align:left}
+.closer h2{font-size:clamp(40px,8vw,104px);text-transform:uppercase}
+.closer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:28px}
+.closer .btn{border-color:#fff;color:#fff}
+.closer .btn:hover{background:#fff;color:var(--pole)}
+footer{padding-block:28px;font-size:13px;color:var(--ink-soft)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* Barra fija móvil */
+.mbar{display:none}
+@media (max-width:640px){
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--paper);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;justify-content:center;padding:.85em}
+  footer{padding-bottom:96px}
+}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>VICTOR BARBER</a>
+    <nav aria-label="Principal"><ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#trabajos">Trabajos</a></li>
+      <li><a href="#sobre">Sobre mí</a></li>
+      <li><a href="#visitame">Visítame</a></li>
+    </ul></nav>
+    <a class="btn primary" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="label">Barbería · Cortes, fades y barba</p>
+        <h1 style="margin-top:18px">Cortes con <em>pulso</em> firme.</h1>
+        <p class="lede">Soy Victor. Hago fades limpios, cortes clásicos y perfilado de barba con navaja, uno a la vez y sin apuro.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://wa.me/" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+          <a class="btn" href="#trabajos">Ver trabajos</a>
+        </div>
+        <div class="meta">
+          <div class="label"><b>8+</b>años en la silla</div>
+          <div class="label"><b>4.9★</b>en Google</div>
+          <div class="label"><b>1×1</b>un cliente a la vez</div>
+        </div>
+      </div>
+      <div class="pole" role="img" aria-label="Poste de barbería girando"></div>
+    </div>
+  </div>
+
+  <section id="servicios">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Carta</p><h2 style="margin-top:12px">Servicios</h2></div>
+        <p>Precios fijos, sin sorpresas. El tiempo es aproximado e incluye lavado y acabado.</p>
+      </div>
+      <div class="services">
+        <div class="svc"><h3>Corte clásico</h3><p>Tijera y máquina, acabado con navaja en nuca y patillas.</p><span class="dur">40 min</span><span class="price">$15</span></div>
+        <div class="svc"><h3>Fade / degradado</h3><p>Low, mid o high fade. Transición pareja desde el #0.</p><span class="dur">50 min</span><span class="price">$18</span></div>
+        <div class="svc"><h3>Barba con navaja</h3><p>Perfilado, toalla caliente y aceite.</p><span class="dur">30 min</span><span class="price">$12</span></div>
+        <div class="svc"><h3>Corte + barba</h3><p>El servicio completo. El más pedido.</p><span class="dur">75 min</span><span class="price">$25</span></div>
+        <div class="svc"><h3>Diseño / líneas</h3><p>Rayas y figuras a mano alzada sobre el corte.</p><span class="dur">+15 min</span><span class="price">+$5</span></div>
+        <div class="svc"><h3>Corte niño</h3><p>Hasta 12 años, con paciencia incluida.</p><span class="dur">30 min</span><span class="price">$12</span></div>
+      </div>
+      <div class="guards" aria-label="Medidas de peine">
+        <span class="label" style="margin-right:6px">Peines</span>
+        <span>#0 · 0 mm</span><span>#0.5 · 1.5 mm</span><span>#1 · 3 mm</span><span>#2 · 6 mm</span><span>#3 · 10 mm</span><span>#4 · 13 mm</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="trabajos" class="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Portafolio</p><h2 style="margin-top:12px">Trabajos</h2></div>
+        <p>Cortes reales de la semana. Más en Instagram.</p>
+      </div>
+      <div class="grid">
+        <figure class="ph a"><figcaption>Mid fade + textura <span>#0.5 → #3</span></figcaption></figure>
+        <figure class="ph b"><figcaption>Taper clásico <span>tijera</span></figcaption></figure>
+        <figure class="ph c"><figcaption>Barba perfilada <span>navaja</span></figcaption></figure>
+        <figure class="ph d"><figcaption>Burst fade <span>#0</span></figcaption></figure>
+        <figure class="ph e"><figcaption>Crop francés <span>#2</span></figcaption></figure>
+        <figure class="ph f"><figcaption>Líneas <span>diseño</span></figcaption></figure>
+      </div>
+      <p class="note">Espacios reservados para fotos. Reemplazar con fotos propias en formato vertical y luz natural.</p>
+    </div>
+  </section>
+
+  <section id="sobre" class="about">
+    <div class="wrap">
+      <figure class="ph"><figcaption>Victor en la silla <span>retrato</span></figcaption></figure>
+      <div>
+        <p class="label">Sobre mí</p>
+        <blockquote style="margin-top:16px">“Un buen corte no se nota el primer día. Se nota a las tres semanas.”</blockquote>
+        <div class="body">
+          <p>Empecé cortándole el pelo a mis amigos en el patio de la casa. Hoy atiendo en mi propio espacio, con la misma regla: escuchar primero y cortar después.</p>
+          <p>Trabajo por cita y por orden de llegada. Si no sabes qué pedir, mándame una foto y lo vemos juntos.</p>
+        </div>
+        <div class="facts">
+          <div class="label"><b>8+</b>años</div>
+          <div class="label"><b>3k+</b>cortes</div>
+          <div class="label"><b>100%</b>navaja desechable</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Reseñas</p><h2 style="margin-top:12px">Lo que dicen</h2></div>
+        <p>Reseñas de ejemplo. Reemplazar con reseñas reales de Google.</p>
+      </div>
+      <div class="rv">
+        <figure><div class="stars" aria-label="5 de 5">★★★★★</div><blockquote>El fade más limpio que me han hecho. Llegué con una foto y salí igual.</blockquote><figcaption>Andrés M. · Google</figcaption></figure>
+        <figure><div class="stars" aria-label="5 de 5">★★★★★</div><blockquote>Puntual, tranquilo y detallista con la barba. Ya es mi barbero fijo.</blockquote><figcaption>Luis R. · Google</figcaption></figure>
+        <figure><div class="stars" aria-label="5 de 5">★★★★★</div><blockquote>Le cortó a mi hijo con una paciencia increíble. Volvemos cada mes.</blockquote><figcaption>Carolina P. · Google</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="visitame" class="visit">
+    <div class="wrap">
+      <div>
+        <p class="label">Dónde</p>
+        <h3 style="margin-top:10px">Visítame</h3>
+        <address>Av. Principal 123, Local 4<br>Tu ciudad</address>
+        <a class="btn" style="margin-top:20px" href="https://maps.google.com/" target="_blank" rel="noopener">Abrir en Maps</a>
+      </div>
+      <div>
+        <p class="label">Cuándo</p>
+        <h3 style="margin-top:10px">Horario</h3>
+        <table class="hours"><tbody>
+          <tr><td>Lunes</td><td>Cerrado</td></tr>
+          <tr><td>Mar – Vie</td><td>10:00 – 20:00</td></tr>
+          <tr><td>Sábado</td><td>09:00 – 19:00</td></tr>
+          <tr class="off"><td>Domingo</td><td>Cerrado</td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <p class="label">Contacto</p>
+        <h3 style="margin-top:10px">Escríbeme</h3>
+        <div class="contact-list">
+          <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp <span>+00 000 000 0000</span></a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram <span>@victor.barber</span></a>
+          <a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok <span>@victor.barber</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer">
+    <div class="wrap">
+      <h2>¿Toca corte?</h2>
+      <a class="btn" href="https://wa.me/" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Victor Barber</span><span>Hecho con navaja y paciencia</span></div></footer>
+
+<div class="mbar">
+  <a class="btn primary" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+</div>

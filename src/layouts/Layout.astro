@@ -1,0 +1,38 @@
+---
+import "@/styles/global.css";
+import ScrollFx from "@/components/ScrollFx";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Victor · Barbería de autor",
+  description = "Cortes a tijera y navaja, fades y barba, uno a la vez. Escríbele a Victor por WhatsApp.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="theme-color" content="#ebe9e4" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`.replace("//", "/")} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:wght@300;400;500&display=swap"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <ScrollFx client:load />
+  </body>
+</html>
