@@ -36,7 +36,7 @@ Node 22.12 o superior (hay un `.nvmrc`; con nvm basta con `nvm use`).
 | `data-pin`     | Variable `--p` mientras una sección alta está anclada         |
 | `data-mag`     | Botón magnético                                               |
 
-Además escribe `--sy` (progreso de la página) y `--cx`/`--cy` (posición del cursor) en `:root`.
+Además escribe en `:root` `--sy` (progreso de la página), `--cx`/`--cy` (cursor en la ventana) y `--px`/`--py` (cursor en la página).
 Todas las animaciones se apagan si el dispositivo pide reducir el movimiento.
 
 Los componentes React interactivos son `ServicePreview` (foto flotante en la carta) y `Reviews` (reseñas rotativas). El resto es HTML estático de Astro.

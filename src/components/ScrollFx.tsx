@@ -10,7 +10,7 @@ import { useEffect } from "react";
  * - data-pin          --p de 0 a 1 mientras una sección alta está anclada
  * - data-words        ilumina las palabras (.sp) según el scroll
  * - data-mag          botón magnético que sigue al cursor
- * En :root escribe --sy (progreso de la página), --cx/--cy (cursor en px).
+ * En :root escribe --sy (progreso de la página), --cx/--cy (cursor en la ventana) y --px/--py (cursor en la página).
  */
 export default function ScrollFx() {
   useEffect(() => {
@@ -96,13 +96,26 @@ export default function ScrollFx() {
       cleanups.push(() => cancelAnimationFrame(raf));
     }
 
-    // Cursor
+    // Cursor: --cx/--cy en la ventana; --px/--py en la página (se actualizan también al hacer scroll)
+    let lastX = 0;
+    let lastY = 0;
+    const setPage = () => {
+      root.style.setProperty("--px", `${lastX + scrollX}px`);
+      root.style.setProperty("--py", `${lastY + scrollY}px`);
+    };
     const onMove = (e: PointerEvent) => {
-      root.style.setProperty("--cx", `${e.clientX}px`);
-      root.style.setProperty("--cy", `${e.clientY}px`);
+      lastX = e.clientX;
+      lastY = e.clientY;
+      root.style.setProperty("--cx", `${lastX}px`);
+      root.style.setProperty("--cy", `${lastY}px`);
+      setPage();
     };
     addEventListener("pointermove", onMove, { passive: true });
-    cleanups.push(() => removeEventListener("pointermove", onMove));
+    addEventListener("scroll", setPage, { passive: true });
+    cleanups.push(() => {
+      removeEventListener("pointermove", onMove);
+      removeEventListener("scroll", setPage);
+    });
 
     // Botones magnéticos
     if (!reduced && matchMedia("(hover: hover)").matches) {

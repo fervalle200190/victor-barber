@@ -22,7 +22,7 @@ import { contact, whatsappUrl } from "@/data/site";
     <!-- Texto y botón en la columna izquierda: la foto ocupa la derecha -->
     <div class="relative z-2 mt-7 flex max-w-[38ch] flex-col items-start gap-6">
       <p data-r style="--d:3" class="text-[19px]">
-        Barbería de autor. Cortes a tijera y navaja,
+        Barbería de autor. Cortes a tijera y navaja,{" "}
         <em class="font-display text-gold">hechos con calma</em>, uno a la vez.
       </p>
       <CtaLink href={whatsappUrl()} solid data-r style="--d:5">Escribir por WhatsApp</CtaLink>
@@ -32,14 +32,19 @@ import { contact, whatsappUrl } from "@/data/site";
 </section>
 
 <style>
-  /* Luz dorada que sigue al cursor */
+  /*
+   * Luz dorada que sigue al cursor. Usa coordenadas de página (--px/--py) porque
+   * la portada empieza arriba del documento, y se difumina hacia los bordes
+   * para que no se note el corte del contenedor.
+   */
   .hero::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: radial-gradient(560px circle at var(--cx, 70%) var(--cy, 40%), rgb(156 126 69 / 0.22), transparent 62%);
+    background: radial-gradient(560px circle at var(--px, 70%) var(--py, 40%), rgb(156 126 69 / 0.22), transparent 62%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
   }
 
   .hero-photo {
@@ -82,6 +87,10 @@ import { contact, whatsappUrl } from "@/data/site";
       aspect-ratio: auto;
       margin-bottom: 24px;
       transform: none;
+    }
+    /* En el celular el botón queda en el centro y la línea lo cruzaría */
+    .scroll-cue {
+      display: none;
     }
   }
 </style>
