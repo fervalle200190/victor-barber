@@ -94,6 +94,71 @@
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
+/* ---------- Reserva (Booking.tsx) ---------- */
+
+/* Alto de la tarjeta que se ajusta con suavidad al cambiar de paso */
+.bk-height { transition: height 0.5s var(--ease-silk); overflow: hidden; }
+
+/* Cada paso entra deslizándose según la dirección */
+.bk-step[data-dir="fwd"] { animation: bk-in-fwd 0.55s var(--ease-silk) both; }
+.bk-step[data-dir="back"] { animation: bk-in-back 0.55s var(--ease-silk) both; }
+@keyframes bk-in-fwd { from { opacity: 0; transform: translateX(40px); } }
+@keyframes bk-in-back { from { opacity: 0; transform: translateX(-40px); } }
+
+/* Título y opciones aparecen escalonados (el retraso lo pone el componente).
+   Solo dentro de un paso con dirección, es decir, después de la primera interacción. */
+.bk-step[data-dir] .bk-title { animation: bk-rise 0.6s var(--ease-silk) both; }
+.bk-step[data-dir] .bk-item { animation: bk-rise 0.55s var(--ease-silk) both; }
+@keyframes bk-rise { from { opacity: 0; transform: translateY(14px); } }
+
+.bk-fade { animation: bk-fade 0.4s ease both; }
+@keyframes bk-fade { from { opacity: 0; transform: translateY(-6px); } }
+
+/* Bloques que se abren y cierran animando su alto */
+.bk-collapse { display: grid; grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows 0.45s var(--ease-silk), opacity 0.3s; }
+.bk-collapse.is-closed { grid-template-rows: 0fr; opacity: 0; }
+.bk-collapse > * { overflow: hidden; }
+
+/* Aviso en el campo de nombre */
+.bk-shake { animation: bk-shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+@keyframes bk-shake {
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+
+/* Flechas que empujan al pasar el cursor */
+.bk-arrow { display: inline-block; transition: transform 0.3s var(--ease-silk); }
+button:hover .bk-arrow { transform: translateX(-4px); }
+.bk-arrow-fwd { display: inline-block; transition: transform 0.3s var(--ease-silk); }
+.group:hover .bk-arrow-fwd { transform: translateX(5px); }
+
+/* Botón de enviar: un pulso suave para señalar el último toque */
+.bk-glow { position: relative; }
+.bk-glow::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgb(156 126 69 / 0.45);
+  animation: bk-pulse 2.4s 1s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes bk-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(156 126 69 / 0.45); }
+  70%, 100% { box-shadow: 0 0 0 14px rgb(156 126 69 / 0); }
+}
+
+/* Check final que se dibuja */
+.bk-done circle { stroke-dasharray: 208; stroke-dashoffset: 208; animation: bk-draw 0.7s var(--ease-silk) 0.1s forwards; }
+.bk-done path { stroke-dasharray: 42; stroke-dashoffset: 42; animation: bk-draw 0.45s var(--ease-silk) 0.65s forwards; }
+.bk-done { animation: bk-pop 0.5s var(--ease-silk) both; }
+@keyframes bk-draw { to { stroke-dashoffset: 0; } }
+@keyframes bk-pop { from { transform: scale(0.7); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-done circle, .bk-done path { stroke-dashoffset: 0; }
+}
+
 /* Textura de grano sobre las fotos */
 .photo { position: relative; overflow: hidden; isolation: isolate; }
 .photo::after {

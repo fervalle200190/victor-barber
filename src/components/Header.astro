@@ -11,7 +11,7 @@ const links = [
 
 <div class="scroll-bar fixed top-0 left-0 z-60 h-0.5 bg-gold" aria-hidden="true"></div>
 
-<header class="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)] text-white mix-blend-difference">
+<header id="site-header" class="site-header fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)]">
   <div class="wrap flex items-center justify-between py-5.5">
     <a href="#top" class="font-display text-[22px] tracking-[0.2em] no-underline uppercase">{contact.name}</a>
     <nav class="flex gap-8 text-[13px] tracking-[0.2em] uppercase">
@@ -22,7 +22,32 @@ const links = [
   </div>
 </header>
 
+<script>
+  // Fuera de la portada el menú lleva fondo, para que el texto de la página no se mezcle con él
+  const header = document.getElementById("site-header");
+  const hero = document.querySelector(".hero");
+  if (header && hero) {
+    new IntersectionObserver(([e]) => header.classList.toggle("is-solid", !e.isIntersecting), {
+      rootMargin: "-80px 0px 0px 0px",
+    }).observe(hero);
+  }
+</script>
+
 <style>
+  /* Sobre la portada: texto blanco en modo diferencia (se ve sobre foto y fondo claro) */
+  .site-header {
+    color: #fff;
+    mix-blend-mode: difference;
+    transition: background-color 0.4s, box-shadow 0.4s;
+  }
+  .site-header.is-solid {
+    color: var(--color-ink);
+    mix-blend-mode: normal;
+    background: rgb(235 233 228 / 0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 var(--color-line);
+  }
+
   .scroll-bar {
     width: calc(var(--sy, 0) * 100%);
   }

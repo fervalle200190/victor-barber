@@ -50,6 +50,7 @@ Los componentes React interactivos son `ServicePreview` (foto flotante en la car
 - **Duración de cada servicio:** `duration`. Los servicios con `bookable: false` (extras) no aparecen en la reserva.
 - Cada servicio de la carta tiene un botón "Reservar" (`data-book`) que abre la reserva con ese servicio elegido.
 - La lógica de días y horarios está en `src/lib/booking.ts`.
+- Las animaciones del flujo (entrada de cada paso según avance o retroceso, alto de la tarjeta, opciones escalonadas, check final) usan las clases `bk-*` de `src/styles/global.css`. Solo se animan los cambios de paso, no la carga de la página.
 
 Como no hay base de datos, la web no sabe qué horas ya están tomadas. Para eso hace falta un backend o un servicio de agenda (Google Calendar, Cal.com, etc.).
 
