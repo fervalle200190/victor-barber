@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 import type { Service } from "@/data/site";
-import { longDate, splitByPartOfDay, upcomingDays, type Day } from "@/lib/booking";
+import { longDate, splitByPartOfDay, to12h, upcomingDays, type Day } from "@/lib/booking";
+import { smoothScrollTo } from "@/lib/smoothScroll";
 
 /**
  * Reserva paso a paso, pensada para cualquier persona: una sola pregunta por
@@ -48,15 +49,35 @@ export default function Booking({ services, whatsappNumber }: Props) {
   // Los días se calculan solo en el navegador (dependen de la fecha y hora actuales)
   const days = useMemo(() => (service && step >= 1 ? upcomingDays(service.duration) : []), [service, step]);
 
-  // Al cambiar de paso: llevar la vista y el foco a la nueva pregunta
+  // Al cambiar de paso: llevar el foco a la nueva pregunta y, si quedó fuera de la vista,
+  // desplazar con suavidad hasta ella. Si el teclado estaba abierto (venimos del formulario),
+  // primero se cierra y se espera a que la pantalla recupere su alto, para evitar el salto.
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
       return;
     }
-    const top = rootRef.current?.getBoundingClientRect().top ?? 0;
-    if (top < 0 || top > innerHeight * 0.4) rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const card = rootRef.current;
+    if (!card) return;
+    const vv = window.visualViewport;
+    const keyboardOpen = !!vv && vv.height < innerHeight - 120;
+    (document.activeElement as HTMLElement | null)?.blur();
     headingRef.current?.focus({ preventScroll: true });
+
+    let cancel = () => {};
+    const timer = window.setTimeout(
+      () => {
+        const headerH = document.getElementById("site-header")?.getBoundingClientRect().height ?? 0;
+        const top = card.getBoundingClientRect().top;
+        if (top >= headerH && top < innerHeight * 0.4) return;
+        cancel = smoothScrollTo(scrollY + top - headerH - 12);
+      },
+      keyboardOpen ? 320 : 60,
+    );
+    return () => {
+      window.clearTimeout(timer);
+      cancel();
+    };
   }, [step]);
 
   useEffect(() => () => window.clearTimeout(pending.current), []);
@@ -132,7 +153,7 @@ export default function Booking({ services, whatsappNumber }: Props) {
       ? [
           "Hola Victor, quiero reservar:",
           `• ${service.name} (${service.price})`,
-          `• ${capitalize(longDate(day.date))}, a las ${time}`,
+          `• ${capitalize(longDate(day.date))}, a las ${to12h(time).label}`,
           `• A nombre de: ${name.trim()}`,
           ...(note.trim() ? [`• Nota: ${note.trim()}`] : []),
           "",
@@ -179,7 +200,7 @@ export default function Booking({ services, whatsappNumber }: Props) {
                 <ul className="m-0 flex list-none flex-wrap gap-2 p-0 pt-4" aria-label="Lo que elegiste">
                   {service && step >= 1 && <Chip onClick={() => go(0)} label="servicio">{service.name}</Chip>}
                   {day && step >= 2 && <Chip onClick={() => go(1)} label="día">{`${day.label} ${day.date.getDate()}`}</Chip>}
-                  {time && step >= 3 && <Chip onClick={() => go(2)} label="hora">{time}</Chip>}
+                  {time && step >= 3 && <Chip onClick={() => go(2)} label="hora">{to12h(time).label}</Chip>}
                 </ul>
               </div>
             </div>
@@ -282,9 +303,13 @@ export default function Booking({ services, whatsappNumber }: Props) {
                             }}
                             aria-pressed={time === t}
                             style={stagger(n++, 22)}
-                            className={`bk-item ${choice(time === t)} min-h-16 items-center py-3 text-center font-display text-[24px] tabular-nums`}
+                            aria-label={to12h(t).label}
+                            className={`bk-item ${choice(time === t)} min-h-16 items-center py-2 text-center`}
                           >
-                            {t}
+                            <span className="font-display text-[24px] leading-none tabular-nums">{to12h(t).time}</span>
+                            <span className="mt-1 text-[13px] leading-none tracking-[0.12em] text-muted uppercase transition-colors group-aria-pressed:text-stone/75">
+                              {to12h(t).period}
+                            </span>
                           </button>
                         ))}
                       </div>
@@ -350,7 +375,7 @@ export default function Booking({ services, whatsappNumber }: Props) {
               <dl className="max-w-xl divide-y divide-line border-y border-line">
                 <SummaryRow i={0} label="Servicio" value={`${service.name} · ${service.price}`} onChange={() => go(0)} />
                 <SummaryRow i={1} label="Día" value={capitalize(longDate(day.date))} onChange={() => go(1)} />
-                <SummaryRow i={2} label="Hora" value={time} onChange={() => go(2)} />
+                <SummaryRow i={2} label="Hora" value={to12h(time).label} onChange={() => go(2)} />
                 <SummaryRow i={3} label="Nombre" value={name.trim()} onChange={() => go(3)} />
                 {note.trim() && <SummaryRow i={4} label="Nota" value={note.trim()} onChange={() => go(3)} />}
               </dl>

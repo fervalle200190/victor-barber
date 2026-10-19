@@ -62,10 +62,21 @@ export function upcomingDays(duration: number, now = new Date()): Day[] {
 export const longDate = (date: Date) =>
   new Intl.DateTimeFormat("es", { weekday: "long", day: "numeric", month: "long" }).format(date);
 
-/** Separa los horarios en mañana (antes de las 13:00) y tarde. */
+/** Separa los horarios en mañana (am) y tarde (pm). */
 export function splitByPartOfDay(slots: string[]) {
   return {
-    morning: slots.filter((s) => toMinutes(s) < 13 * 60),
-    afternoon: slots.filter((s) => toMinutes(s) >= 13 * 60),
+    morning: slots.filter((s) => toMinutes(s) < 12 * 60),
+    afternoon: slots.filter((s) => toMinutes(s) >= 12 * 60),
   };
+}
+
+/**
+ * Hora en formato de 12 horas. Internamente las horas se guardan como "13:30".
+ * "13:30" → { time: "1:30", period: "pm", label: "1:30 pm" }
+ */
+export function to12h(hhmm: string) {
+  const [h, m] = hhmm.split(":").map(Number);
+  const period = h < 12 ? "am" : "pm";
+  const time = `${h % 12 || 12}:${String(m).padStart(2, "0")}`;
+  return { time, period, label: `${time} ${period}` };
 }

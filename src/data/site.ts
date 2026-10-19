@@ -18,8 +18,8 @@ export const instagramUrl = `https://instagram.com/${contact.instagram}`;
 
 // Horario que se muestra en Contacto. Debe coincidir con `schedule`.
 export const hours = [
-  { days: "Mar – Vie", time: "10:00 – 20:00" },
-  { days: "Sábado", time: "09:00 – 19:00" },
+  { days: "Mar – Vie", time: "10:00 am – 8:00 pm" },
+  { days: "Sábado", time: "9:00 am – 7:00 pm" },
   { days: "Dom – Lun", time: "Cerrado" },
 ];
 
