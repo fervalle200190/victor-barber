@@ -1,0 +1,20 @@
+---
+import SplitText from "./SplitText.astro";
+import Booking from "./Booking";
+import { contact, services } from "@/data/site";
+---
+
+<section id="reservar" class="scroll-mt-16 border-t border-line py-[clamp(80px,12vw,160px)]">
+  <div class="wrap">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
+      <div>
+        <p class="eyebrow" data-r>Reserva</p>
+        <SplitText as="h2" text="Pide tu hora" data-r class="mt-4 text-[clamp(44px,7vw,96px)] leading-none" />
+      </div>
+      <p data-r class="max-w-[40ch] text-[19px] text-muted">
+        Cuatro preguntas cortas. Al final te abrimos WhatsApp con todo escrito y Victor te confirma.
+      </p>
+    </div>
+    <Booking client:load services={services} whatsappNumber={contact.whatsappNumber} />
+  </div>
+</section>

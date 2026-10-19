@@ -39,14 +39,22 @@ Node 22.12 o superior (hay un `.nvmrc`; con nvm basta con `nvm use`).
 Además escribe en `:root` `--sy` (progreso de la página), `--cx`/`--cy` (cursor en la ventana) y `--px`/`--py` (cursor en la página).
 Todas las animaciones se apagan si el dispositivo pide reducir el movimiento.
 
-Los componentes React interactivos son `ServicePreview` (foto flotante en la carta) y `Reviews` (reseñas rotativas). El resto es HTML estático de Astro.
+Los componentes React interactivos son `ServicePreview` (foto flotante en la carta), `Reviews` (reseñas rotativas) y `Booking` (reserva). El resto es HTML estático de Astro.
+
+## Reserva
+
+`src/components/Booking.tsx` pregunta en cuatro pasos servicio, día, hora y nombre, muestra un resumen y abre WhatsApp con el mensaje escrito para que Victor confirme. No guarda nada: el sitio es estático y la confirmación la hace Victor por WhatsApp.
+
+- **Horario de reservas:** `schedule` en `src/data/site.ts` (tiene que coincidir con `hours`, que es el que se muestra en Contacto).
+- **Intervalo entre horarios, días hacia adelante y margen para reservar hoy:** `booking` en el mismo archivo.
+- **Duración de cada servicio:** `duration`. Los servicios con `bookable: false` (extras) no aparecen en la reserva.
+- Cada servicio de la carta tiene un botón "Reservar" (`data-book`) que abre la reserva con ese servicio elegido.
+- La lógica de días y horarios está en `src/lib/booking.ts`.
+
+Como no hay base de datos, la web no sabe qué horas ya están tomadas. Para eso hace falta un backend o un servicio de agenda (Google Calendar, Cal.com, etc.).
 
 ## Publicación
 
 Se publica sola en GitHub Pages (https://fervalle200190.github.io/victor-barber/) con cada push a `main`, mediante `.github/workflows/deploy.yml`. Si se pasa a un dominio propio, cambiar `site` y quitar `base` en `astro.config.mjs`.
-
-## Pendiente para la v2
-
-- Reservas en línea.
 
 Los prototipos HTML anteriores están en `prototipos/`.

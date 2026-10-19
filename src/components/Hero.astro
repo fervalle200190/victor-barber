@@ -25,7 +25,12 @@ import { contact, whatsappUrl } from "@/data/site";
         Barbería de autor. Cortes a tijera y navaja,{" "}
         <em class="font-display text-gold">hechos con calma</em>, uno a la vez.
       </p>
-      <CtaLink href={whatsappUrl()} solid data-r style="--d:5">Escribir por WhatsApp</CtaLink>
+      <div data-r style="--d:5" class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <CtaLink href="#reservar" solid>Reservar hora</CtaLink>
+        <a href={whatsappUrl()} target="_blank" rel="noopener" class="text-[15px] text-muted underline underline-offset-4 hover:text-ink">
+          o escríbeme por WhatsApp
+        </a>
+      </div>
     </div>
   </div>
   <span class="scroll-cue" aria-hidden="true"></span>
